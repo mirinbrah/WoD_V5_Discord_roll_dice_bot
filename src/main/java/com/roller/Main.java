@@ -10,7 +10,7 @@ public class Main {
     //стандартная точка входа для джава
     public static void main(String[] args) {
         //уникальный токен бота
-        String botToken = "токен вашего бота в кавычках";
+        String botToken = "";
 
         DiscordBot.startBot(botToken); //запускаем бота, логика "как" в отдельном классе DiscordBot
     }

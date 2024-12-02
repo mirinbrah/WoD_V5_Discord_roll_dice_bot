@@ -11,6 +11,7 @@ public class DiceRoller {
     private static final int SUCCESS_DIE = 6; // Значение на кубе, которое делает его успехом
     private static final int MIN_NUMBER_OF_DICES = 1; // Минимальное количество кубов
     private static final int MIN_DIFFICULTY = 0; // Минимальная сложность
+    private static final int MAX_VALUE = 100; // Максимальное значение для кубов, граней и сложности
 
     private final Integer numberOfDices;
     final Integer numberOfSides;
@@ -63,19 +64,12 @@ public class DiceRoller {
         return successes;
     }
 
-    // Метод для расчета итогового результата
-    private int calculateFinalResult() {
-        return successes - difficulty;
-    }
-
     // Метод для получения результата в виде строки
     public String getResults() {
         // Проверяем ошибки перед выполнением бросков
-        if (numberOfDices == 0) {
-            return "Ошибка: количество кубов не может быть равно 0.";
-        }
-        if (numberOfSides == null) {
-            return "Ошибка: количество граней не может быть равно 0.";
+        String validationError = validateInputs();
+        if (validationError != null) {
+            return validationError;
         }
 
         // Выполняем бросок
@@ -111,6 +105,32 @@ public class DiceRoller {
         return result.toString();
     }
 
+    // Метод для расчета итогового результата
+    private int calculateFinalResult() {
+        return successes - difficulty;
+    }
+
+    // Метод для проверки значений
+    private String validateInputs() {
+        if (numberOfDices == 0) {
+            return "Ошибка: количество кубов не может быть равно 0.";
+        }
+        if (numberOfDices > MAX_VALUE) {
+            return "Ошибка: количество кубов не может быть больше 100.";
+        }
+        if (numberOfSides == null) {
+            return "Ошибка: количество граней не может быть равно 0.";
+        }
+        if (numberOfSides > MAX_VALUE) {
+            return "Ошибка: количество граней не может быть больше 100.";
+        }
+        if (difficulty > MAX_VALUE) {
+            return "Ошибка: сложность не может быть больше 100.";
+        }
+        return null;
+    }
+
+    // Метод для изменения форматирования бросков
     private String formatRoll(int roll) {
         if (roll == 10) {
             return "**" + roll + "**"; // Жирный текст для десяток
