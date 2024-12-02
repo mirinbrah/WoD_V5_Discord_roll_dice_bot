@@ -127,7 +127,7 @@ public class DiceRoller {
         if (difficulty > MAX_VALUE) {
             return "Ошибка: сложность не может быть больше 100.";
         }
-        return null;
+        return null; //Ошибок нет, идем дальше
     }
 
     // Метод для изменения форматирования бросков
